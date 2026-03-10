@@ -1,0 +1,69 @@
+
+3p2.elf:     file format elf32-littleriscv
+
+Contents of section .text:
+ 80000000 17140000 13040400 83240400 93025000  .........$....P.
+ 80000010 13091000 13132900 33036400 03230300  ......).3.d..#..
+ 80000020 63d46400 93040300 13091900 e34459fe  c.d..........DY.
+ 80000030 6f000000                             o...            
+Contents of section .data:
+ 80001000 42000000 37000000 fd000000 83000000  B...7...........
+ 80001010 11000000                             ....            
+Contents of section .riscv.attributes:
+ 0000 41190000 00726973 63760001 0f000000  A....riscv......
+ 0010 05727633 32693270 3100               .rv32i2p1.      
+
+Disassembly of section .text:
+
+80000000 <rvtest_entry_point>:
+rvtest_entry_point():
+80000000:	00001417          	auipc	s0,0x1
+80000004:	00040413          	mv	s0,s0
+80000008:	00042483          	lw	s1,0(s0) # 80001000 <numbers>
+8000000c:	00500293          	li	t0,5
+80000010:	00100913          	li	s2,1
+
+80000014 <loop>:
+loop():
+80000014:	00291313          	slli	t1,s2,0x2
+80000018:	00640333          	add	t1,s0,t1
+8000001c:	00032303          	lw	t1,0(t1)
+80000020:	0064d463          	bge	s1,t1,80000028 <skip>
+80000024:	00030493          	mv	s1,t1
+
+80000028 <skip>:
+skip():
+80000028:	00190913          	addi	s2,s2,1
+8000002c:	fe5944e3          	blt	s2,t0,80000014 <loop>
+
+80000030 <self_loop>:
+self_loop():
+80000030:	0000006f          	j	80000030 <self_loop>
+
+Disassembly of section .data:
+
+80001000 <numbers>:
+numbers():
+80001000:	0042                	.insn	2, 0x0042
+80001002:	0000                	.insn	2, 0x
+80001004:	00000037          	lui	zero,0x0
+80001008:	00fd                	.insn	2, 0x00fd
+8000100a:	0000                	.insn	2, 0x
+8000100c:	00000083          	lb	ra,0(zero) # 0 <rvtest_entry_point-0x80000000>
+80001010:	0011                	.insn	2, 0x0011
+	...
+
+Disassembly of section .riscv.attributes:
+
+00000000 <.riscv.attributes>:
+   0:	1941                	.insn	2, 0x1941
+   2:	0000                	.insn	2, 0x
+   4:	7200                	.insn	2, 0x7200
+   6:	7369                	.insn	2, 0x7369
+   8:	01007663          	bgeu	zero,a6,14 <rvtest_entry_point-0x7fffffec>
+   c:	0000000f          	fence	unknown,unknown
+  10:	7205                	.insn	2, 0x7205
+  12:	3376                	.insn	2, 0x3376
+  14:	6932                	.insn	2, 0x6932
+  16:	7032                	.insn	2, 0x7032
+  18:	0031                	.insn	2, 0x0031
