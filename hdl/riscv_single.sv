@@ -84,14 +84,14 @@ module riscvsingle (input  logic        clk, reset,
    logic [2:0]        ImmSrc;
    logic [3:0] 				ALUControl;
    
-   controller c (Instr[6:0], Instr[14:12], Instr[30], Zero,
+   controller c (Instr[6:0], Instr[14:12], Instr[30], Zero, LT, LTU,
 		 ResultSrc, MemWrite, PCSrc,
 		 ALUSrc, RegWrite, Jump,
 		 ImmSrc, ALUControl);
    datapath dp (clk, reset, ResultSrc, PCSrc,
 		ALUSrc, RegWrite,
 		ImmSrc, ALUControl,
-		Zero, PC, Instr,
+		Zero, LT, LTU, PC, Instr,
 		ALUResult, WriteData, ReadData);
    
 endmodule // riscvsingle
@@ -99,7 +99,7 @@ endmodule // riscvsingle
 module controller (input  logic [6:0] op,
 		   input  logic [2:0] funct3,
 		   input  logic       funct7b5,
-		   input  logic       Zero,
+		   input  logic       Zero, LT, LTU,
 		   output logic [1:0] ResultSrc,
 		   output logic [1:0] MemWrite,
 		   output logic       PCSrc, ALUSrc,
@@ -109,11 +109,24 @@ module controller (input  logic [6:0] op,
    
    logic [1:0] 			      ALUOp;
    logic 			      Branch;
+   logic                  BranchCondition;
+
+   always_comb
+    case(funct3)
+        3'b000: BranchCondition = Zero; // BEQ
+        3'b001: BranchCondition = ~Zero; // BNE
+        3'b100: BranchCondition = LT; // BLT
+        3'b101: BranchCondition = ~LT; // BGE
+        3'b110: BranchCondition = LTU; // BLTU
+        3'b111: BranchCondition = ~LTU; // BGEU
+        default: BranchCondition = 1'bx; // undefined
+    endcase // case (funct3)
+        
    
    maindec md (op, funct3, ResultSrc, MemWrite, Branch,
 	       ALUSrc, RegWrite, Jump, ImmSrc, ALUOp);
    aludec ad (op[5], funct3, funct7b5, ALUOp, ALUControl);
-   assign PCSrc = Branch & (Zero ^ funct3[0]) | Jump;
+   assign PCSrc = Branch & BranchCondition | Jump;
    
 endmodule // controller
 
@@ -166,28 +179,28 @@ module aludec (input  logic       opb5,
    
    assign RtypeSub = funct7b5 & opb5; // TRUE for R–type subtract
    always_comb
-     case(ALUOp)
-       2'b00: ALUControl = 4'b0000; // addition
-       2'b01: ALUControl = 4'b0001; // subtraction
-       2'b11: ALUControl = 4'b1111; // pass value b
-       default: case(funct3) // R–type or I–type ALU
-		  3'b000: if (RtypeSub)
-		    ALUControl = 4'b0001; // sub
-		  else
-		    ALUControl = 4'b0000; // add, addi
-      3'b001: ALUControl = 4'b0110; // sll, slli
-		  3'b010: ALUControl = 4'b0101; // slt, slti
-      3'b011: ALUControl = 4'b0111; // sltu, sltiu
-      3'b100: ALUControl = 4'b0100; // xor, xori
-      3'b101: if (funct7b5)
-        ALUControl = 4'b1001; // sra, srai
-      else
-        ALUControl = 4'b1000; // srl, srli
-		  3'b110: ALUControl = 4'b0011; // or, ori
-		  3'b111: ALUControl = 4'b0010; // and, andi
-		  default: ALUControl = 4'bxxxx; // ???
-		endcase // case (funct3)       
-     endcase // case (ALUOp)
+	 case(ALUOp)
+	   2'b00: ALUControl = 4'b0000; // addition
+	   2'b01: ALUControl = 4'b0001; // subtraction
+	   2'b11: ALUControl = 4'b1111; // pass value b
+	   default: case(funct3) // R–type or I–type ALU
+		 3'b000: if (RtypeSub)
+		   ALUControl = 4'b0001; // sub
+		 else
+		   ALUControl = 4'b0000; // add, addi
+		 3'b001: ALUControl = 4'b0110; // sll, slli
+		 3'b010: ALUControl = 4'b0101; // slt, slti
+		 3'b011: ALUControl = 4'b0111; // sltu, sltiu
+		 3'b100: ALUControl = 4'b0100; // xor, xori
+		 3'b101: if (funct7b5)
+		   ALUControl = 4'b1001; // sra, srai
+		 else
+		   ALUControl = 4'b1000; // srl, srli
+		 3'b110: ALUControl = 4'b0011; // or, ori
+		 3'b111: ALUControl = 4'b0010; // and, andi
+		 default: ALUControl = 4'bxxxx; // ???
+	   endcase // case (funct3)
+	 endcase // case (ALUOp)
    
 endmodule // aludec
 
@@ -197,7 +210,7 @@ module datapath (input  logic        clk, reset,
 		 input  logic 	     RegWrite,
 		 input  logic [2:0]  ImmSrc,
 		 input  logic [3:0]  ALUControl,
-		 output logic 	     Zero,
+		 output logic 	     Zero, LT, LTU,
 		 output logic [31:0] PC,
 		 input  logic [31:0] Instr,
 		 output logic [31:0] ALUResult, WriteData,
@@ -220,7 +233,7 @@ module datapath (input  logic        clk, reset,
    extend  ext (Instr[31:7], ImmSrc, ImmExt);
    // ALU logic
    mux2 #(32)  srcbmux (WriteData, ImmExt, ALUSrc, SrcB);
-   alu  alu (SrcA, SrcB, ALUControl, ALUResult, Zero);
+   alu  alu (SrcA, SrcB, ALUControl, ALUResult, Zero, LT, LTU);
    loadext loadext (Instr[14:12], ALUResult[1:0], ReadData, ExtendedReadData);
    mux4 #(32) resultmux (ALUResult, ExtendedReadData, PCPlus4, PCTarget, ResultSrc, Result);
   
@@ -348,7 +361,9 @@ endmodule // dmem
 module alu (input  logic signed [31:0] a, b,
             input  logic [3:0] 	alucontrol,
             output logic [31:0] result,
-            output logic 	zero);
+            output logic 	    zero,
+            output logic        lt,
+            output logic        ltu);
 
    logic [31:0] 	       condinvb, sum;
    logic 		       v;              // overflow
@@ -356,12 +371,15 @@ module alu (input  logic signed [31:0] a, b,
    logic [32:0]        sum_extended;   // extended sum to capture carry
    logic               carry_out;      // carry from addition
 
+
    assign condinvb = alucontrol[0] ? ~b : b; // if alucontrol 0th bit is 1, perform 1's complement
    assign sum = a + condinvb + alucontrol[0];
    assign sum_extended = {1'b0, a} + {1'b0, condinvb} + alucontrol[0]; // 1's -> 2's complement
    assign carry_out = sum_extended[32]; //if sum_extended is negative, that means b was larger.
    assign isAddSub = ~alucontrol[2] & ~alucontrol[1] |
                      ~alucontrol[1] & alucontrol[0];   // TRUE for add, sub, slt operations
+   assign lt = sum[31] ^ v; // if sum is negative and no overflow, or sum is positive and overflow, then a < b
+   assign ltu = ~carry_out; // if carry_out is 0, that means a < b for unsigned comparison
 
   // can expand alucontrol to a 4-bit value to accodomate more instructions unless that interferes with other portions
    always_comb
@@ -371,9 +389,9 @@ module alu (input  logic signed [31:0] a, b,
        4'b0010:  result = a & b;       // and
        4'b0011:  result = a | b;       // or
        4'b0100:  result = a ^ b;       // xor
-       4'b0101:  result = sum[31] ^ v; // slt (signed comparison)
+       4'b0101:  result = {{31{1'b0}}, lt}; // slt (signed comparison)
        4'b0110:  result = a << b;      // sll
-       4'b0111:  result = ~carry_out;  // sltu (unsigned comparison)
+       4'b0111:  result = {{31{1'b0}}, ltu};  // sltu (unsigned comparison)
        4'b1000:  result = a >> b;      // srl
        4'b1001:  result = a >>> b;     // sra
        4'b1111:  result = b;           // pass value b (lui)
