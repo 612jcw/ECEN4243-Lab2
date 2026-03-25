@@ -207,6 +207,7 @@ module datapath (input  logic        clk, reset,
    logic [31:0] 		     ImmExt;
    logic [31:0] 		     SrcA, SrcB;
    logic [31:0] 		     Result;
+   logic [31:0]              ExtendedReadData;
    
    // next PC logic
    flopr #(32) pcreg (clk, reset, PCNext, PC);
@@ -220,8 +221,9 @@ module datapath (input  logic        clk, reset,
    // ALU logic
    mux2 #(32)  srcbmux (WriteData, ImmExt, ALUSrc, SrcB);
    alu  alu (SrcA, SrcB, ALUControl, ALUResult, Zero);
-   mux4 #(32) resultmux (ALUResult, ReadData, PCPlus4, PCTarget, ResultSrc, Result);
-
+   loadext loadext (Instr[14:12], ALUResult[1:0], ReadData, ExtendedReadData);
+   mux4 #(32) resultmux (ALUResult, ExtendedReadData, PCPlus4, PCTarget, ResultSrc, Result);
+  
 endmodule // datapath
 
 module adder (input  logic [31:0] a, b,
@@ -351,12 +353,16 @@ module alu (input  logic signed [31:0] a, b,
    logic [31:0] 	       condinvb, sum;
    logic 		       v;              // overflow
    logic 		       isAddSub;       // true when is add or subtract operation
+   logic [32:0]        sum_extended;   // extended sum to capture carry
+   logic               carry_out;      // carry from addition
 
-   assign condinvb = alucontrol[0] ? ~b : b;
+   assign condinvb = alucontrol[0] ? ~b : b; // if alucontrol 0th bit is 1, perform 1's complement
    assign sum = a + condinvb + alucontrol[0];
+   assign sum_extended = {1'b0, a} + {1'b0, condinvb} + alucontrol[0]; // 1's -> 2's complement
+   assign carry_out = sum_extended[32]; //if sum_extended is negative, that means b was larger.
    assign isAddSub = ~alucontrol[2] & ~alucontrol[1] |
                      ~alucontrol[1] & alucontrol[0];   // TRUE for add, sub, slt operations
-  
+
   // can expand alucontrol to a 4-bit value to accodomate more instructions unless that interferes with other portions
    always_comb
      case (alucontrol)
@@ -365,9 +371,9 @@ module alu (input  logic signed [31:0] a, b,
        4'b0010:  result = a & b;       // and
        4'b0011:  result = a | b;       // or
        4'b0100:  result = a ^ b;       // xor
-       4'b0101:  result = sum[31] ^ v; // slt
+       4'b0101:  result = sum[31] ^ v; // slt (signed comparison)
        4'b0110:  result = a << b;      // sll
-       // 4'b0111:  // sltu - check position
+       4'b0111:  result = ~carry_out;  // sltu (unsigned comparison)
        4'b1000:  result = a >> b;      // srl
        4'b1001:  result = a >>> b;     // sra
        4'b1111:  result = b;           // pass value b (lui)
@@ -429,4 +435,32 @@ module masking (input logic [1:0] MemWrite,
 
 endmodule // masking
 
-// module loadext (input logic )
+module loadext (input logic [2:0] funct3,
+        input logic [1:0] addr,
+        input logic [31:0] ReadData,
+        output logic [31:0] ExtendedReadData);
+
+    logic [31:0] aligned_data;
+
+    always_comb
+        case ({funct3[0], addr})
+            3'b0_00: aligned_data = ReadData[7:0]; // LB
+            3'b0_01: aligned_data = ReadData[15:8]; // LB
+            3'b0_10: aligned_data = ReadData[23:16]; // LB
+            3'b0_11: aligned_data = ReadData[31:24]; // LB
+            3'b1_00: aligned_data = ReadData[15:0]; // LH
+            3'b1_10: aligned_data = ReadData[31:16]; // LH
+            default: aligned_data = 32'bx; // undefined
+        endcase // case ({funct3[0], addr})
+
+    always_comb
+        case (funct3)
+            3'b000: ExtendedReadData = {{24{aligned_data[7]}}, aligned_data[7:0]}; // LB
+            3'b001: ExtendedReadData = {{16{aligned_data[15]}}, aligned_data[15:0]}; // LH
+            3'b010: ExtendedReadData = ReadData; // LW
+            3'b100: ExtendedReadData = {24'b0, aligned_data[7:0]}; // LBU
+            3'b101: ExtendedReadData = {16'b0, aligned_data[15:0]}; // LHU
+            default: ExtendedReadData = 32'bx; // undefined
+        endcase // case (funct3)
+
+endmodule // loadext
