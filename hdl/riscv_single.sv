@@ -38,11 +38,11 @@ module testbench();
    top dut(clk, reset, WriteData, DataAdr, MemWrite);
 
    initial
-     begin
+	 begin
 	string memfilename;
-        memfilename = {"../../riscv_testing/sh.memfile"}; // Use "../riscvtest/riscvtest.memfile"
-        $readmemh(memfilename, dut.imem.RAM);
-     end
+		memfilename = {"testing/sw.memfile"};
+		$readmemh(memfilename, dut.imem.RAM);
+	 end
 
    
    // initialize test
@@ -323,39 +323,40 @@ module mux4 #(parameter WIDTH = 8)
 endmodule // mux3
 
 module top (input  logic        clk, reset,
-	    output logic [31:0] WriteData, DataAdr,
-	    output logic [1:0] MemWrite);
-   
+		output logic [31:0] WriteData, DataAdr,
+		output logic [1:0] MemWrite);
+
    logic [31:0] 		PC, Instr, ReadData, MaskedWriteData;
-   
+   logic 			WriteEn;
+
    // instantiate processor and memories
    riscvsingle rv32single (clk, reset, PC, Instr, MemWrite, DataAdr,
 			   WriteData, ReadData);
-   masking masking (MemWrite, ReadData, WriteData, DataAdr[1:0], MaskedWriteData);
+   masking masking (MemWrite, ReadData, WriteData, DataAdr[1:0], MaskedWriteData, WriteEn);
    imem imem (PC, Instr);
-   dmem dmem (clk, MemWrite, DataAdr, MaskedWriteData, ReadData);
+   dmem dmem (clk, WriteEn, DataAdr, MaskedWriteData, ReadData);
    
 endmodule // top
 
 module imem (input  logic [31:0] a,
-	     output logic [31:0] rd);
-   
-   logic [31:0] 		 RAM[63:0];
+		 output logic [31:0] rd);
+
+   logic [31:0] 		 RAM[2047:0];
    
    assign rd = RAM[a[31:2]]; // word aligned
    
 endmodule // imem
 
 module dmem (input  logic        clk, we,
-	     input  logic [31:0] a, wd,
-	     output logic [31:0] rd);
-   
-   logic [31:0] 		 RAM[255:0];
-   
+		 input  logic [31:0] a, wd,
+		 output logic [31:0] rd);
+
+   logic [31:0] 		 RAM[4095:0];
+
    assign rd = RAM[a[31:2]]; // word aligned
    always_ff @(posedge clk)
-     if (we) RAM[a[31:2]] <= wd;
-   
+	 if (we) RAM[a[31:2]] <= wd;
+
 endmodule // dmem
 
 module alu (input  logic signed [31:0] a, b,
@@ -429,26 +430,26 @@ module masking (input logic [1:0] MemWrite,
 		input logic [31:0] WriteData,
 		input logic [1:0] Addr,
 		output logic [31:0] MaskedWriteData,
-    output logic WriteEn);
+		output logic WriteEn);
 
-    assign WriteEn = MemWrite[0] | MemWrite[1];
+	assign WriteEn = MemWrite[0] | MemWrite[1];
 
-    always_comb
-      case (MemWrite)
-	      2'b01: MaskedWriteData = WriteData; // SW 
-	      2'b10: case (Addr[1]) // SH
-		        1'b0: MaskedWriteData = {ReadData[31:16], WriteData[15:0]};
-		        1'b1: MaskedWriteData = {WriteData[15:0], ReadData[15:0]};
-            default: MaskedWriteData = 32'bx; // undefined
-          endcase // case (MemWrite)
-	      2'b11: case (Addr[1:0]) // SB
-		        1'b00: MaskedWriteData = {ReadData[31:8], WriteData[7:0]};
-		        1'b01: MaskedWriteData = {ReadData[31:16], WriteData[7:0], ReadData[7:0]};
-		        1'b10: MaskedWriteData = {ReadData[31:24], WriteData[7:0], ReadData[15:0]};
-		        1'b11: MaskedWriteData = {WriteData[7:0], ReadData[23:0]};
-	          default: MaskedWriteData = 32'bx; // undefined
-          endcase // case (MemWrite)
-      default: MaskedWriteData = 32'bx; // undefined
+	always_comb
+	  case (MemWrite)
+		  2'b01: MaskedWriteData = WriteData; // SW 
+		  2'b10: case (Addr[1]) // SH
+				1'b0: MaskedWriteData = {ReadData[31:16], WriteData[15:0]};
+				1'b1: MaskedWriteData = {WriteData[15:0], ReadData[15:0]};
+			default: MaskedWriteData = 32'bx; // undefined
+		  endcase // case (MemWrite)
+		  2'b11: case (Addr[1:0]) // SB
+				1'b00: MaskedWriteData = {ReadData[31:8], WriteData[7:0]};
+				1'b01: MaskedWriteData = {ReadData[31:16], WriteData[7:0], ReadData[7:0]};
+				1'b10: MaskedWriteData = {ReadData[31:24], WriteData[7:0], ReadData[15:0]};
+				1'b11: MaskedWriteData = {WriteData[7:0], ReadData[23:0]};
+			  default: MaskedWriteData = 32'bx; // undefined
+		  endcase // case (MemWrite)
+	  default: MaskedWriteData = 32'bx; // undefined
 	  endcase // case (MemWrite)
 
 endmodule // masking
