@@ -40,7 +40,7 @@ module testbench();
    initial
 	 begin
 	string memfilename;
-		memfilename = {"testing/sw.memfile"};
+		memfilename = {"testing/sb.memfile"};
 		$readmemh(memfilename, dut.imem.RAM);
 	 end
 
@@ -443,10 +443,10 @@ module masking (input logic [1:0] MemWrite,
 			default: MaskedWriteData = 32'bx; // undefined
 		  endcase // case (MemWrite)
 		  2'b11: case (Addr[1:0]) // SB
-				1'b00: MaskedWriteData = {ReadData[31:8], WriteData[7:0]};
-				1'b01: MaskedWriteData = {ReadData[31:16], WriteData[7:0], ReadData[7:0]};
-				1'b10: MaskedWriteData = {ReadData[31:24], WriteData[7:0], ReadData[15:0]};
-				1'b11: MaskedWriteData = {WriteData[7:0], ReadData[23:0]};
+				2'b00: MaskedWriteData = {ReadData[31:8], WriteData[7:0]};
+				2'b01: MaskedWriteData = {ReadData[31:16], WriteData[7:0], ReadData[7:0]};
+				2'b10: MaskedWriteData = {ReadData[31:24], WriteData[7:0], ReadData[15:0]};
+				2'b11: MaskedWriteData = {WriteData[7:0], ReadData[23:0]};
 			  default: MaskedWriteData = 32'bx; // undefined
 		  endcase // case (MemWrite)
 	  default: MaskedWriteData = 32'bx; // undefined
