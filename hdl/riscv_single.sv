@@ -38,11 +38,14 @@ module testbench();
    top dut(clk, reset, WriteData, DataAdr, MemWrite);
 
    initial
-	 begin
-	string memfilename;
-		memfilename = {"testing/sb.memfile"};
-		$readmemh(memfilename, dut.imem.RAM);
-	 end
+	begin
+   string memfilename;
+   // Allow memfile to be specified via +memfile plusarg, default to jalr.memfile
+   if (!$value$plusargs("memfile=%s", memfilename)) begin
+	  memfilename = "testing/jalr.memfile";
+   end
+   $readmemh(memfilename, dut.imem.RAM);
+	end
 
    
    // initialize test
@@ -59,31 +62,34 @@ module testbench();
 
    // check results
    always @(negedge clk)
-     begin
-	if(MemWrite) begin
-           if(DataAdr === 100 & WriteData === 25) begin
-              $display("Simulation succeeded");
-              $stop;
-           end // else if (DataAdr !== 96) begin
-              // $display("Simulation failed");
-              // $stop;
-           // end
+	 begin
+	// Check for ecall instruction (0x00000073)
+	if(dut.rv32single.Instr === 32'h00000073) begin
+	   // Access a0 (x10) from register file
+	   if(dut.rv32single.dp.rf.rf[10] === 32'd10) begin
+		  $display("Simulation succeeded");
+		  $stop;
+	   end else if(dut.rv32single.dp.rf.rf[10] === 32'd17) begin
+		  $display("Simulation failed");
+		  $stop;
+	   end
 	end
-     end
+	 end
 endmodule // testbench
 
 module riscvsingle (input  logic        clk, reset,
-		    output logic [31:0] PC,
-		    input  logic [31:0] Instr,
-		    output logic [1:0]	MemWrite,
-		    output logic [31:0] ALUResult, WriteData,
-		    input  logic [31:0] ReadData);
-   
+			output logic [31:0] PC,
+			input  logic [31:0] Instr,
+			output logic [1:0]	MemWrite,
+			output logic [31:0] ALUResult, WriteData,
+			input  logic [31:0] ReadData);
+
    logic 				ALUSrc, RegWrite, Jump, Zero;
    logic [1:0] 				ResultSrc;
+   logic [1:0]        PCSrc;
    logic [2:0]        ImmSrc;
    logic [3:0] 				ALUControl;
-   
+
    controller c (Instr[6:0], Instr[14:12], Instr[30], Zero, LT, LTU,
 		 ResultSrc, MemWrite, PCSrc,
 		 ALUSrc, RegWrite, Jump,
@@ -93,7 +99,7 @@ module riscvsingle (input  logic        clk, reset,
 		ImmSrc, ALUControl,
 		Zero, LT, LTU, PC, Instr,
 		ALUResult, WriteData, ReadData);
-   
+
 endmodule // riscvsingle
 
 module controller (input  logic [6:0] op,
@@ -102,32 +108,36 @@ module controller (input  logic [6:0] op,
 		   input  logic       Zero, LT, LTU,
 		   output logic [1:0] ResultSrc,
 		   output logic [1:0] MemWrite,
-		   output logic       PCSrc, ALUSrc,
+		   output logic [1:0] PCSrc,
+		   output logic       ALUSrc,
 		   output logic       RegWrite, Jump,
 		   output logic [2:0] ImmSrc,
 		   output logic [3:0] ALUControl);
-   
+
    logic [1:0] 			      ALUOp;
    logic 			      Branch;
    logic                  BranchCondition;
 
    always_comb
-    case(funct3)
-        3'b000: BranchCondition = Zero; // BEQ
-        3'b001: BranchCondition = ~Zero; // BNE
-        3'b100: BranchCondition = LT; // BLT
-        3'b101: BranchCondition = ~LT; // BGE
-        3'b110: BranchCondition = LTU; // BLTU
-        3'b111: BranchCondition = ~LTU; // BGEU
-        default: BranchCondition = 1'bx; // undefined
-    endcase // case (funct3)
-        
-   
+	case(funct3)
+		3'b000: BranchCondition = Zero; // BEQ
+		3'b001: BranchCondition = ~Zero; // BNE
+		3'b100: BranchCondition = LT; // BLT
+		3'b101: BranchCondition = ~LT; // BGE
+		3'b110: BranchCondition = LTU; // BLTU
+		3'b111: BranchCondition = ~LTU; // BGEU
+		default: BranchCondition = 1'bx; // undefined
+	endcase // case (funct3)
+
    maindec md (op, funct3, ResultSrc, MemWrite, Branch,
-	       ALUSrc, RegWrite, Jump, ImmSrc, ALUOp);
+		   ALUSrc, RegWrite, Jump, ImmSrc, ALUOp);
    aludec ad (op[5], funct3, funct7b5, ALUOp, ALUControl);
-   assign PCSrc = Branch & BranchCondition | Jump;
-   
+
+   // PCSrc is 2-bit: [1] = Branch/Jump (but not JALR), [0] = JALR vs JAL
+   // JALR (1100111) has op[3]=0, JAL (1101111) has op[3]=1
+   assign PCSrc[1] = (Branch & BranchCondition | Jump) & op[3];  // 0 for JALR, 1 for JAL/branch
+   assign PCSrc[0] = Jump & ~op[3];  // 1 for JALR, 0 for JAL/branch
+
 endmodule // controller
 
 module maindec (input  logic [6:0] op,
@@ -206,7 +216,8 @@ endmodule // aludec
 
 module datapath (input  logic        clk, reset,
 		 input  logic [1:0]  ResultSrc,
-		 input  logic 	     PCSrc, ALUSrc,
+		 input  logic [1:0]  PCSrc,
+		 input  logic 	     ALUSrc,
 		 input  logic 	     RegWrite,
 		 input  logic [2:0]  ImmSrc,
 		 input  logic [3:0]  ALUControl,
@@ -215,28 +226,28 @@ module datapath (input  logic        clk, reset,
 		 input  logic [31:0] Instr,
 		 output logic [31:0] ALUResult, WriteData,
 		 input  logic [31:0] ReadData);
-   
+
    logic [31:0] 		     PCNext, PCPlus4, PCTarget;
    logic [31:0] 		     ImmExt;
    logic [31:0] 		     SrcA, SrcB;
    logic [31:0] 		     Result;
    logic [31:0]              ExtendedReadData;
-   
+
    // next PC logic
    flopr #(32) pcreg (clk, reset, PCNext, PC);
    adder  pcadd4 (PC, 32'd4, PCPlus4);
    adder  pcaddbranch (PC, ImmExt, PCTarget);
-   mux2 #(32)  pcmux (PCPlus4, PCTarget, PCSrc, PCNext);
+   mux3 #(32)  pcmux (PCPlus4, ALUResult, PCTarget, PCSrc, PCNext);
    // register file logic
    regfile  rf (clk, RegWrite, Instr[19:15], Instr[24:20],
-	       Instr[11:7], Result, SrcA, WriteData);
+		   Instr[11:7], Result, SrcA, WriteData);
    extend  ext (Instr[31:7], ImmSrc, ImmExt);
    // ALU logic
    mux2 #(32)  srcbmux (WriteData, ImmExt, ALUSrc, SrcB);
    alu  alu (SrcA, SrcB, ALUControl, ALUResult, Zero, LT, LTU);
    loadext loadext (Instr[14:12], ALUResult[1:0], ReadData, ExtendedReadData);
    mux4 #(32) resultmux (ALUResult, ExtendedReadData, PCPlus4, PCTarget, ResultSrc, Result);
-  
+
 endmodule // datapath
 
 module adder (input  logic [31:0] a, b,
