@@ -42,7 +42,7 @@ module testbench();
    string memfilename;
    // Allow memfile to be specified via +memfile plusarg, default to jalr.memfile
    if (!$value$plusargs("memfile=%s", memfilename)) begin
-	  memfilename = "testing/jalr.memfile";
+	  memfilename = "../testing/blt.memfile";
    end
    $readmemh(memfilename, dut.imem.RAM);
 	end
@@ -135,7 +135,7 @@ module controller (input  logic [6:0] op,
 
    // PCSrc is 2-bit: [1] = Branch/Jump (but not JALR), [0] = JALR vs JAL
    // JALR (1100111) has op[3]=0, JAL (1101111) has op[3]=1
-   assign PCSrc[1] = (Branch & BranchCondition | Jump) & op[3];  // 0 for JALR, 1 for JAL/branch
+   assign PCSrc[1] = (Branch & BranchCondition | (Jump & op[3])) ;  // 0 for JALR, 1 for JAL/branch
    assign PCSrc[0] = Jump & ~op[3];  // 1 for JALR, 0 for JAL/branch
 
 endmodule // controller
@@ -274,11 +274,7 @@ module extend (input  logic [31:7] instr,
        // U-type (lui)
        3'b100: immext = {instr[31:12], 12'b0000_0000_0000};
        // I-type shifts (slli, etc.)
-       3'b101: immext = {{28{instr[24]}}, instr[23:20]};
-       // lb
-       // lh
-       // lbu
-       // lbh
+       3'b101: immext = {27'b0000_0000_0000_0000_0000_0000_000, instr[24:20]};
        default: immext = 32'bx; // undefined
      endcase // case (immsrc)
    
