@@ -1,0 +1,483 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Mon Mar 30 17:18:05 2026
+# Process ID: 7600
+# Current directory: C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.runs/design_1_top_0_0_synth_1
+# Command line: vivado.exe -log design_1_top_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_top_0_0.tcl
+# Log file: C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.runs/design_1_top_0_0_synth_1/design_1_top_0_0.vds
+# Journal file: C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.runs/design_1_top_0_0_synth_1\vivado.jou
+# Running On: CEAT-ENDV350-04, OS: Windows, CPU Frequency: 2496 MHz, CPU Physical cores: 8, Host memory: 68426 MB
+#-----------------------------------------------------------
+source design_1_top_0_0.tcl -notrace
+create_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 566.832 ; gain = 182.273
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.ipdefs/ip_repo_BAK_0_0_0'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2023.2/data/ip'.
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: design_1_top_0_0
+Command: synth_design -top design_1_top_0_0 -part xc7z020clg484-1 -incremental_mode off -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Device 21-403] Loading part xc7z020clg484-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 12456
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1436.676 ; gain = 438.996
+---------------------------------------------------------------------------------
+INFO: [Synth 8-11241] undeclared symbol 'LT', assumed default net type 'wire' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:43]
+INFO: [Synth 8-11241] undeclared symbol 'LTU', assumed default net type 'wire' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:43]
+INFO: [Synth 8-6157] synthesizing module 'design_1_top_0_0' [c:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.srcs/sources_1/bd/design_1/ip/design_1_top_0_0/synth/design_1_top_0_0.v:53]
+INFO: [Synth 8-6157] synthesizing module 'top' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.srcs/sources_1/imports/fpga/src/top.v:2]
+INFO: [Synth 8-6157] synthesizing module 'riscv_single' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:28]
+INFO: [Synth 8-6157] synthesizing module 'controller' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:55]
+INFO: [Synth 8-6157] synthesizing module 'maindec' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:95]
+INFO: [Synth 8-6155] done synthesizing module 'maindec' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:95]
+INFO: [Synth 8-6157] synthesizing module 'aludec' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:135]
+INFO: [Synth 8-226] default block is never used [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:149]
+INFO: [Synth 8-6155] done synthesizing module 'aludec' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:135]
+INFO: [Synth 8-6155] done synthesizing module 'controller' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:55]
+INFO: [Synth 8-6157] synthesizing module 'datapath' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:170]
+INFO: [Synth 8-6157] synthesizing module 'flopenr' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:248]
+	Parameter WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'flopenr' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:248]
+INFO: [Synth 8-6157] synthesizing module 'adder' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:207]
+INFO: [Synth 8-6155] done synthesizing module 'adder' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:207]
+INFO: [Synth 8-6157] synthesizing module 'mux3' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:268]
+	Parameter WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'mux3' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:268]
+INFO: [Synth 8-6157] synthesizing module 'regfile' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:352]
+INFO: [Synth 8-6155] done synthesizing module 'regfile' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:352]
+INFO: [Synth 8-6157] synthesizing module 'extend' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:214]
+INFO: [Synth 8-6155] done synthesizing module 'extend' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:214]
+INFO: [Synth 8-6157] synthesizing module 'mux2' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:259]
+	Parameter WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'mux2' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:259]
+INFO: [Synth 8-6157] synthesizing module 'alu' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:307]
+INFO: [Synth 8-6155] done synthesizing module 'alu' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:307]
+INFO: [Synth 8-6157] synthesizing module 'loadext' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:402]
+INFO: [Synth 8-6155] done synthesizing module 'loadext' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:402]
+INFO: [Synth 8-6157] synthesizing module 'mux4' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:277]
+	Parameter WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'mux4' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:277]
+INFO: [Synth 8-6155] done synthesizing module 'datapath' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:170]
+INFO: [Synth 8-6155] done synthesizing module 'riscv_single' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:28]
+WARNING: [Synth 8-689] width (1) of port connection 'MemWrite' does not match port width (2) of module 'riscv_single' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.srcs/sources_1/imports/fpga/src/top.v:22]
+INFO: [Synth 8-6157] synthesizing module 'imem' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:286]
+INFO: [Synth 8-6155] done synthesizing module 'imem' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:286]
+INFO: [Synth 8-6157] synthesizing module 'MemControl' [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.srcs/sources_1/imports/fpga/src/memcontroller.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'MemControl' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.srcs/sources_1/imports/fpga/src/memcontroller.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'top' (0#1) [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.srcs/sources_1/imports/fpga/src/top.v:2]
+INFO: [Synth 8-6155] done synthesizing module 'design_1_top_0_0' (0#1) [c:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.srcs/sources_1/bd/design_1/ip/design_1_top_0_0/synth/design_1_top_0_0.v:53]
+WARNING: [Synth 8-4767] Trying to implement RAM ' ' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+	1: Unable to determine number of words or word size in RAM. 
+	2: No valid read/write found for RAM. 
+RAM dissolved into registers
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+WARNING: [Synth 8-3848] Net RAM in module/entity imem does not have driver. [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/hdl/riscv_single.sv:289]
+INFO: [Common 17-14] Message 'Synth 8-3848' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'inst'. This will prevent further optimization [c:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.srcs/sources_1/bd/design_1/ip/design_1_top_0_0/synth/design_1_top_0_0.v:82]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'memcontrol'. This will prevent further optimization [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.srcs/sources_1/imports/fpga/src/top.v:30]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'riscv_single'. This will prevent further optimization [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.srcs/sources_1/imports/fpga/src/top.v:18]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'imem'. This will prevent further optimization [C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.srcs/sources_1/imports/fpga/src/top.v:28]
+WARNING: [Synth 8-7129] Port a[31] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[30] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[29] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[28] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[27] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[26] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[25] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[24] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[23] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[22] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[21] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[20] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[19] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[18] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[17] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[16] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[15] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[14] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[13] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[1] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[0] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Instr[6] in module datapath is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Instr[5] in module datapath is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Instr[4] in module datapath is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Instr[3] in module datapath is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Instr[2] in module datapath is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Instr[1] in module datapath is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Instr[0] in module datapath is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1585.781 ; gain = 588.102
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1585.781 ; gain = 588.102
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1585.781 ; gain = 588.102
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.052 . Memory (MB): peak = 1585.781 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1608.660 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.044 . Memory (MB): peak = 1608.742 ; gain = 0.082
+INFO: [Designutils 20-5008] Incremental synthesis strategy off
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:13 . Memory (MB): peak = 1608.742 ; gain = 611.062
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg484-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:13 . Memory (MB): peak = 1608.742 ; gain = 611.062
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:13 . Memory (MB): peak = 1608.742 ; gain = 611.062
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'MemControl'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    Idle |                              000 |                              000
+              WriteStart |                              001 |                              100
+                WriteMem |                              010 |                              101
+               WriteData |                              011 |                              110
+               ReadStart |                              100 |                              001
+                 ReadMem |                              101 |                              010
+                ReadData |                              110 |                              011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'MemControl'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 1608.742 ; gain = 611.062
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input   33 Bit       Adders := 1     
+	   2 Input   32 Bit       Adders := 2     
+	   3 Input   32 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
+	   3 Input      1 Bit         XORs := 1     
+	   2 Input      1 Bit         XORs := 2     
++---Registers : 
+	               32 Bit    Registers := 1     
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 10    
+	   2 Input   14 Bit        Muxes := 1     
+	   4 Input   14 Bit        Muxes := 1     
+	  10 Input   14 Bit        Muxes := 1     
+	   9 Input    4 Bit        Muxes := 1     
+	   4 Input    4 Bit        Muxes := 1     
+	   7 Input    3 Bit        Muxes := 2     
+	   2 Input    3 Bit        Muxes := 4     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-7129] Port a[31] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[30] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[29] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[28] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[27] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[26] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[25] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[24] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[23] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[22] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[21] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[20] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[19] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[18] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[17] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[16] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[15] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[14] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[13] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[1] in module imem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port a[0] in module imem is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 1615.984 ; gain = 618.305
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++----------------------+--------------+-----------+----------------------+--------------+
+|Module Name           | RTL Object   | Inference | Size (Depth x Width) | Primitives   | 
++----------------------+--------------+-----------+----------------------+--------------+
+|inst/i_0/riscv_single | dp/rf/rf_reg | Implied   | 32 x 32              | RAM32M x 12  | 
++----------------------+--------------+-----------+----------------------+--------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:46 ; elapsed = 00:00:48 . Memory (MB): peak = 1615.984 ; gain = 618.305
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:46 ; elapsed = 00:00:48 . Memory (MB): peak = 1615.984 ; gain = 618.305
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping Report
++----------------------+--------------+-----------+----------------------+--------------+
+|Module Name           | RTL Object   | Inference | Size (Depth x Width) | Primitives   | 
++----------------------+--------------+-----------+----------------------+--------------+
+|inst/i_0/riscv_single | dp/rf/rf_reg | Implied   | 32 x 32              | RAM32M x 12  | 
++----------------------+--------------+-----------+----------------------+--------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:46 ; elapsed = 00:00:48 . Memory (MB): peak = 1643.121 ; gain = 645.441
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:49 ; elapsed = 00:00:51 . Memory (MB): peak = 1658.918 ; gain = 661.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:49 ; elapsed = 00:00:51 . Memory (MB): peak = 1658.918 ; gain = 661.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:49 ; elapsed = 00:00:51 . Memory (MB): peak = 1658.918 ; gain = 661.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:49 ; elapsed = 00:00:51 . Memory (MB): peak = 1658.918 ; gain = 661.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:49 ; elapsed = 00:00:51 . Memory (MB): peak = 1658.918 ; gain = 661.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:49 ; elapsed = 00:00:51 . Memory (MB): peak = 1658.918 ; gain = 661.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |CARRY4   |    40|
+|2     |LUT1     |    33|
+|3     |LUT2     |    19|
+|4     |LUT3     |    60|
+|5     |LUT4     |    97|
+|6     |LUT5     |   163|
+|7     |LUT6     |   553|
+|8     |RAM32M   |    10|
+|9     |RAM32X1D |     4|
+|10    |FDCE     |    32|
+|11    |FDRE     |     3|
++------+---------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:49 ; elapsed = 00:00:51 . Memory (MB): peak = 1658.918 ; gain = 661.238
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 22 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:42 ; elapsed = 00:00:49 . Memory (MB): peak = 1658.918 ; gain = 638.277
+Synthesis Optimization Complete : Time (s): cpu = 00:00:49 ; elapsed = 00:00:51 . Memory (MB): peak = 1658.918 ; gain = 661.238
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.010 . Memory (MB): peak = 1671.027 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 54 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1675.797 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 14 instances were transformed.
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 10 instances
+  RAM32X1D => RAM32X1D (RAMD32(x2)): 4 instances
+
+Synth Design complete | Checksum: fd545898
+INFO: [Common 17-83] Releasing license: Synthesis
+65 Infos, 152 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:54 ; elapsed = 00:01:19 . Memory (MB): peak = 1675.797 ; gain = 1095.258
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1675.797 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.runs/design_1_top_0_0_synth_1/design_1_top_0_0.dcp' has been generated.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP design_1_top_0_0, cache-ID = 6fa9f533aa634a41
+INFO: [Coretcl 2-1174] Renamed 9 cell refs.
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1675.797 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/jereyou/Documents/Repo/ECEN4243-Lab2/lab2/lab2.runs/design_1_top_0_0_synth_1/design_1_top_0_0.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file design_1_top_0_0_utilization_synth.rpt -pb design_1_top_0_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Mon Mar 30 17:19:44 2026...
